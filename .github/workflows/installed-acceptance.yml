@@ -24,13 +24,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: wordflowlab/hetu-poetry-studio
-          ref: 727a034383279eb0b4b84a7e9a46cd2e7639498c
+          ref: 60a8552f0f552b7f413652450a5839e9c839550e
           path: hetu-poetry-studio
           persist-credentials: false
       - uses: actions/checkout@v4
         with:
           repository: wordflowlab/hetu-biography-studio
-          ref: c1b098ea64bb4bac1ea63fd821f7b79fff266978
+          ref: e9a1decc119ea38624fa4baee22aae6de5363439
           path: hetu-biography-studio
           persist-credentials: false
       - uses: actions/setup-node@v4
