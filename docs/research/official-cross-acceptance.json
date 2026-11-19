@@ -1,0 +1,49 @@
+{
+  "recorded_at": "2026-11-19T04:38:50.353Z",
+  "host_version": "hetu 0.12.6",
+  "plugin_id": "org.wordflowlab.nonfiction-studio",
+  "package_sha256": "df2b61ca9d3fbf8cfc7692535461971c6a083bc85e5f145da8243282add4c4b4",
+  "stages": [
+    "nonfiction-studio保存固定原始材料与专业成果",
+    "poetry-studio读取上游固定成果，保持自身专业字段与判断",
+    "biography-studio读取上游固定成果，保持自身专业字段与判断",
+    "回读下游专业引用并保存下一轮目标，宿主只生成候选，原作品保持"
+  ],
+  "fixed_results": [
+    {
+      "owner_plugin_id": "org.wordflowlab.nonfiction-studio",
+      "object_id": "ext_8d011078-ad6d-486a-a19e-d4cae039f49f",
+      "revision": 1,
+      "sha256": "699956f4da123a92dce35cc237ce95921e154ab74328e2ff5e2ca8dbf4b846c8"
+    },
+    {
+      "owner_plugin_id": "org.wordflowlab.poetry-studio",
+      "object_id": "ext_3c466880-ca4f-4890-9975-143ee2ec4d34",
+      "revision": 1,
+      "sha256": "a458dd0c34340f8e14eb559bcb6a2756cfb1aa328c622dbe8b992ffb891b49e3"
+    },
+    {
+      "owner_plugin_id": "org.wordflowlab.biography-studio",
+      "object_id": "ext_bfab536c-01c4-4d64-b3d2-5db886d72188",
+      "revision": 1,
+      "sha256": "34a55839eacd890a4f39671f94da6eeb0bd6e32f2200c54f81e1b93453ce73b2"
+    }
+  ],
+  "original_fixed_ref": {
+    "revision_ref": {
+      "revision": 1
+    },
+    "sha256": "07aec731bdc152a22408ed990deb888e6bb1ad9c821a808875e06dec24e45a03",
+    "work_ref": {
+      "kind": "novel",
+      "object_id": "novel_49423718-9975-4fcb-b241-98e6cb3506cf",
+      "workspace_id": "workspace_7d916430-3ac0-41f4-a2a8-064371e6fec5"
+    }
+  },
+  "adopted": false,
+  "finalized": false,
+  "limits": [
+    "原创演示材料，不是真人访谈或历史事实认证",
+    "未外发、付费、采纳或定稿"
+  ]
+}

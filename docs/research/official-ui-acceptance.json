@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-19T04:39:37.970Z",
+  "plugin_id": "org.wordflowlab.nonfiction-studio",
+  "package_sha256": "df2b61ca9d3fbf8cfc7692535461971c6a083bc85e5f145da8243282add4c4b4",
+  "host_version": "hetu 0.12.6",
+  "surface_origin": "fixed-packaged-host",
+  "platform": "darwin",
+  "architecture": "arm64",
+  "tabs": [
+    "文章阅读",
+    "主张核实",
+    "采访原话",
+    "证据与出处",
+    "纪实交付"
+  ],
+  "empty_state": true,
+  "professional_actions": true,
+  "artifact_files": [
+    "纪实文章.txt",
+    "纪实核实本.html"
+  ],
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "widths": [
+    1360,
+    760
+  ],
+  "reduced_transparency": true,
+  "CAS_preserves_input": true,
+  "explicit_rebase": true,
+  "close_reopen": true,
+  "dirty_buffer_restore": true,
+  "page_errors": [],
+  "limits": [
+    "原生窗口材质、系统输入法及Windows/Linux未由本测试证明"
+  ]
+}
