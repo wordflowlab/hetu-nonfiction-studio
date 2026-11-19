@@ -1,0 +1,17 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {scenario} from './support/scenario.ts';import {validate,clone} from '../src/domain/model.ts';import {claimReport,claimDigest,checkNonfiction,blockDigest,citations} from '../src/domain/nonfiction.ts';import {validateTransition} from '../src/domain/professional.ts';
+test('支持与反证并列，不能自动选择真相',()=>{const r=claimReport(scenario(),'claim');assert.equal(r.support_count,1);assert.equal(r.contradiction_count,1);assert.equal(r.assessments[0].stale,false);});
+test('没有支持不能记录有支持判断',()=>{const p=scenario();p.links=p.links.filter((x:any)=>x.relation==='context');p.assessments[0].context_sha256=claimDigest(p,'claim');p.assessments[0].judgment='supported';assert.throws(()=>validate(p),/有支持/);});
+test('反证存在不得标为无争议支持',()=>{const p=scenario();p.assessments[0].judgment='supported';assert.throws(()=>validate(p),/反证/);});
+test('没有反证不能伪造争议记录',()=>{const p=scenario();p.links=p.links.filter((x:any)=>x.relation==='supports');p.assessments[0].context_sha256=claimDigest(p,'claim');assert.throws(()=>validate(p),/反证/);});
+test('改稿保留主张旧锚点并显示过期',()=>{const p=scenario();p.blocks[0].text+='还需要补证。';const r=checkNonfiction(p);assert.ok(r.stale_claim_ids.includes('claim'));assert.ok(r.stale_assessment_ids.includes('assessment'));assert.ok(r.stale_note_ids.includes('note'));});
+test('当前摘要的错误引文被拒绝',()=>{const p=scenario();p.claims[0].excerpt='不存在的正文';assert.throws(()=>validate(p),/锚点/);});
+test('原文UTF-8区间错位拒绝',()=>{const p=scenario();p.claims[0].byte_start=1;assert.throws(()=>validate(p),/UTF-8/);});
+test('证据关系理由改变使旧核实过期',()=>{const p=scenario();p.links[0].reason+='，等待补充档案';assert.equal(claimReport(p,'claim').assessments[0].stale,true);});
+test('来源说明变化也要求复核旧判断',()=>{const p=scenario();p.cards[0].creator='另一个明确来源';assert.equal(claimReport(p,'claim').assessments[0].stale,true);});
+test('引文原件不能删除或改写',()=>{const old=scenario(),p=clone(old);p.evidence[0].quote='改过的采访';assert.throws(()=>validateTransition(p,old),/原始记录/);});
+test('采访说话人和原话不能被整本覆盖',()=>{const old=scenario(),p=clone(old);p.turns[0].speaker='其他人';assert.throws(()=>validateTransition(p,old),/原始记录/);});
+test('核实历史只追加，不覆盖旧理由',()=>{const old=scenario(),p=clone(old);p.assessments[0].reason='已经确定';assert.throws(()=>validateTransition(p,old),/原始记录/);});
+test('新核实记录必须固定当前证据组合',()=>{const old=scenario(),p=clone(old);p.assessments.push({...p.assessments[0],id:'new',context_sha256:'0'.repeat(64)});assert.throws(()=>validateTransition(p,old),/当前主张/);});
+test('采访顺序及来源说明不能重复',()=>{const p=scenario();p.turns.push({...p.turns[0],id:'other'});assert.throws(()=>validate(p),/顺序/);const q=scenario();q.cards.push({...q.cards[0],id:'other'});assert.throws(()=>validate(q),/来源/);});
+test('悬空主张、采访和证据关系拒绝',()=>{for(const field of ['evidence','blocks','claims']){const p=scenario();p[field]=[];assert.throws(()=>validate(p));}});
+test('实际引用清单只包含已用证据且保留原话',()=>{const p=scenario();p.evidence.push({...p.evidence[0],id:'unused'});const r=citations(p);assert.equal(r.length,2);assert.equal(r[0].quote,p.evidence[0].quote);});

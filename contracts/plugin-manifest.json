@@ -1,0 +1,2623 @@
+{
+  "manifest_version": 1,
+  "id": "org.wordflowlab.nonfiction-studio",
+  "version": "0.1.0",
+  "host_api": "1",
+  "display": {
+    "zh-CN": "纪实写作",
+    "en": "Nonfiction Studio"
+  },
+  "description": {
+    "zh-CN": "纪实写作专业工程，固定来源、明确依据与可接续修订。",
+    "en": "Nonfiction Studio with fixed evidence, review and continuing revisions."
+  },
+  "license": "Apache-2.0",
+  "work_kinds": [
+    "novel",
+    "drama",
+    "video"
+  ],
+  "dependencies": [],
+  "runtime": {
+    "entry": "backend.mjs"
+  },
+  "contributions": {
+    "data": [
+      {
+        "kind": "nonfiction_project",
+        "schema_version": "1.0.0",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "format_version": {
+              "const": 1
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 170
+            },
+            "brief": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 8000
+            },
+            "cards": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "source_index": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 99
+                  },
+                  "title": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "creator": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 500
+                  },
+                  "date_label": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 200
+                  },
+                  "locator": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 1000
+                  },
+                  "notes": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 4000
+                  }
+                },
+                "required": [
+                  "id",
+                  "source_index",
+                  "title",
+                  "creator",
+                  "date_label",
+                  "locator",
+                  "notes"
+                ]
+              },
+              "maxItems": 100
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "source_index": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 99
+                  },
+                  "byte_start": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100000000
+                  },
+                  "byte_end": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100000000
+                  },
+                  "quote": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 16000
+                  }
+                },
+                "required": [
+                  "id",
+                  "label",
+                  "source_index",
+                  "byte_start",
+                  "byte_end",
+                  "quote"
+                ]
+              },
+              "maxItems": 400
+            },
+            "turns": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "speaker": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "order": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1000
+                  },
+                  "evidence_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "context": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 4000
+                  }
+                },
+                "required": [
+                  "id",
+                  "speaker",
+                  "order",
+                  "evidence_id",
+                  "context"
+                ]
+              },
+              "maxItems": 500
+            },
+            "blocks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "title": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "order": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 300
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 20000
+                  }
+                },
+                "required": [
+                  "id",
+                  "title",
+                  "order",
+                  "text"
+                ]
+              },
+              "maxItems": 300
+            },
+            "claims": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "block_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "block_sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "byte_start": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100000000
+                  },
+                  "byte_end": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100000000
+                  },
+                  "excerpt": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 16000
+                  },
+                  "statement": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 8000
+                  }
+                },
+                "required": [
+                  "id",
+                  "block_id",
+                  "block_sha256",
+                  "byte_start",
+                  "byte_end",
+                  "excerpt",
+                  "statement"
+                ]
+              },
+              "maxItems": 500
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "claim_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "evidence_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "relation": {
+                    "enum": [
+                      "supports",
+                      "contradicts",
+                      "context"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  }
+                },
+                "required": [
+                  "id",
+                  "claim_id",
+                  "evidence_id",
+                  "relation",
+                  "reason"
+                ]
+              },
+              "maxItems": 1000
+            },
+            "assessments": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "claim_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "context_sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "judgment": {
+                    "enum": [
+                      "supported",
+                      "contested",
+                      "unresolved"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 8000
+                  },
+                  "recorder": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  }
+                },
+                "required": [
+                  "id",
+                  "claim_id",
+                  "context_sha256",
+                  "judgment",
+                  "reason",
+                  "recorder"
+                ]
+              },
+              "maxItems": 500
+            },
+            "notes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "target_kind": {
+                    "enum": [
+                      "block",
+                      "claim",
+                      "turn"
+                    ]
+                  },
+                  "target_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "target_sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "origin": {
+                    "enum": [
+                      "author",
+                      "agent"
+                    ]
+                  },
+                  "comment": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 8000
+                  },
+                  "status": {
+                    "enum": [
+                      "open",
+                      "resolved"
+                    ]
+                  },
+                  "resolution": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 4000
+                  }
+                },
+                "required": [
+                  "id",
+                  "target_kind",
+                  "target_id",
+                  "target_sha256",
+                  "origin",
+                  "comment",
+                  "status",
+                  "resolution"
+                ]
+              },
+              "maxItems": 300
+            },
+            "basis_refs": {
+              "type": "array",
+              "maxItems": 100,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "owner_plugin_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "object_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "revision": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1000000
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  }
+                },
+                "required": [
+                  "owner_plugin_id",
+                  "object_id",
+                  "revision",
+                  "sha256"
+                ]
+              }
+            }
+          },
+          "required": [
+            "format_version",
+            "title",
+            "brief",
+            "cards",
+            "evidence",
+            "turns",
+            "blocks",
+            "claims",
+            "links",
+            "assessments",
+            "notes",
+            "basis_refs"
+          ]
+        }
+      }
+    ],
+    "views": [
+      {
+        "id": "nonfiction-studio",
+        "title": "纪实写作",
+        "entry": "index.html",
+        "navigation": "integrated",
+        "object_kinds": [
+          "nonfiction_project"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "list_projects",
+        "title": "查找歌词工程",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            },
+            "cursor": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4000
+            },
+            "query": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 1000
+            }
+          },
+          "required": []
+        }
+      },
+      {
+        "id": "get_project",
+        "title": "读取固定歌词工程",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            }
+          },
+          "required": [
+            "object_id"
+          ]
+        }
+      },
+      {
+        "id": "save_project",
+        "title": "保存完整歌词工程",
+        "effect": "managed_write",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "expected_revision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "expected_sha256": {
+              "type": "string",
+              "pattern": "^([a-f0-9]{64})?$"
+            },
+            "operation_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "content": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "format_version": {
+                  "const": 1
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 170
+                },
+                "brief": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 8000
+                },
+                "cards": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "source_index": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 99
+                      },
+                      "title": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200
+                      },
+                      "creator": {
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 500
+                      },
+                      "date_label": {
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 200
+                      },
+                      "locator": {
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 1000
+                      },
+                      "notes": {
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 4000
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "source_index",
+                      "title",
+                      "creator",
+                      "date_label",
+                      "locator",
+                      "notes"
+                    ]
+                  },
+                  "maxItems": 100
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "label": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200
+                      },
+                      "source_index": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 99
+                      },
+                      "byte_start": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000000
+                      },
+                      "byte_end": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 100000000
+                      },
+                      "quote": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 16000
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "label",
+                      "source_index",
+                      "byte_start",
+                      "byte_end",
+                      "quote"
+                    ]
+                  },
+                  "maxItems": 400
+                },
+                "turns": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "speaker": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200
+                      },
+                      "order": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 1000
+                      },
+                      "evidence_id": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "context": {
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 4000
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "speaker",
+                      "order",
+                      "evidence_id",
+                      "context"
+                    ]
+                  },
+                  "maxItems": 500
+                },
+                "blocks": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "title": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200
+                      },
+                      "order": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 300
+                      },
+                      "text": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 20000
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "title",
+                      "order",
+                      "text"
+                    ]
+                  },
+                  "maxItems": 300
+                },
+                "claims": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "block_id": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "block_sha256": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$"
+                      },
+                      "byte_start": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000000
+                      },
+                      "byte_end": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 100000000
+                      },
+                      "excerpt": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 16000
+                      },
+                      "statement": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 8000
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "block_id",
+                      "block_sha256",
+                      "byte_start",
+                      "byte_end",
+                      "excerpt",
+                      "statement"
+                    ]
+                  },
+                  "maxItems": 500
+                },
+                "links": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "claim_id": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "evidence_id": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "relation": {
+                        "enum": [
+                          "supports",
+                          "contradicts",
+                          "context"
+                        ]
+                      },
+                      "reason": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 4000
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "claim_id",
+                      "evidence_id",
+                      "relation",
+                      "reason"
+                    ]
+                  },
+                  "maxItems": 1000
+                },
+                "assessments": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "claim_id": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "context_sha256": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$"
+                      },
+                      "judgment": {
+                        "enum": [
+                          "supported",
+                          "contested",
+                          "unresolved"
+                        ]
+                      },
+                      "reason": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 8000
+                      },
+                      "recorder": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "claim_id",
+                      "context_sha256",
+                      "judgment",
+                      "reason",
+                      "recorder"
+                    ]
+                  },
+                  "maxItems": 500
+                },
+                "notes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "target_kind": {
+                        "enum": [
+                          "block",
+                          "claim",
+                          "turn"
+                        ]
+                      },
+                      "target_id": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "target_sha256": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$"
+                      },
+                      "origin": {
+                        "enum": [
+                          "author",
+                          "agent"
+                        ]
+                      },
+                      "comment": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 8000
+                      },
+                      "status": {
+                        "enum": [
+                          "open",
+                          "resolved"
+                        ]
+                      },
+                      "resolution": {
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 4000
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "target_kind",
+                      "target_id",
+                      "target_sha256",
+                      "origin",
+                      "comment",
+                      "status",
+                      "resolution"
+                    ]
+                  },
+                  "maxItems": 300
+                },
+                "basis_refs": {
+                  "type": "array",
+                  "maxItems": 100,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "owner_plugin_id": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "object_id": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "revision": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 1000000
+                      },
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$"
+                      }
+                    },
+                    "required": [
+                      "owner_plugin_id",
+                      "object_id",
+                      "revision",
+                      "sha256"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "format_version",
+                "title",
+                "brief",
+                "cards",
+                "evidence",
+                "turns",
+                "blocks",
+                "claims",
+                "links",
+                "assessments",
+                "notes",
+                "basis_refs"
+              ]
+            },
+            "source_refs": {
+              "type": "array",
+              "maxItems": 100,
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "required": [
+            "expected_revision",
+            "expected_sha256",
+            "operation_key",
+            "content"
+          ]
+        }
+      },
+      {
+        "id": "get_source",
+        "title": "分块读取固定来源",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "source_index": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 99
+            },
+            "offset": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000000
+            },
+            "max_bytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 48000
+            }
+          },
+          "required": [
+            "object_id",
+            "source_index"
+          ]
+        }
+      },
+      {
+        "id": "get_basis",
+        "title": "读取固定专业依据",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "basis_index": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 99
+            }
+          },
+          "required": [
+            "object_id",
+            "basis_index"
+          ]
+        }
+      },
+      {
+        "id": "compare_versions",
+        "title": "比较固定歌词修订",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "from_revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "to_revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            }
+          },
+          "required": [
+            "object_id",
+            "from_revision",
+            "to_revision"
+          ]
+        }
+      },
+      {
+        "id": "export_project",
+        "title": "分块导出完整歌词数据",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "format": {
+              "enum": [
+                "json",
+                "markdown",
+                "html"
+              ]
+            },
+            "offset": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 32000000
+            },
+            "max_bytes": {
+              "type": "integer",
+              "minimum": 256,
+              "maximum": 48000
+            }
+          },
+          "required": [
+            "object_id",
+            "format"
+          ]
+        }
+      },
+      {
+        "id": "build_context",
+        "title": "准备有界创作上下文",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "goal": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 8000
+            },
+            "max_chars": {
+              "type": "integer",
+              "minimum": 256,
+              "maximum": 32000
+            }
+          },
+          "required": [
+            "object_id",
+            "goal",
+            "max_chars"
+          ]
+        }
+      },
+      {
+        "id": "create_handoff",
+        "title": "准备本工程AI接续",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "goal": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 8000
+            }
+          },
+          "required": [
+            "object_id",
+            "goal"
+          ]
+        }
+      },
+      {
+        "id": "get_operation",
+        "title": "回读原操作",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "operation_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          "required": [
+            "operation_key"
+          ]
+        }
+      },
+      {
+        "id": "put_card",
+        "title": "维护来源说明",
+        "effect": "managed_write",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "expected_revision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "expected_sha256": {
+              "type": "string",
+              "pattern": "^([a-f0-9]{64})?$"
+            },
+            "operation_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "card": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "source_index": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 99
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "creator": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 500
+                },
+                "date_label": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 200
+                },
+                "locator": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 1000
+                },
+                "notes": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 4000
+                }
+              },
+              "required": [
+                "id",
+                "source_index",
+                "title",
+                "creator",
+                "date_label",
+                "locator",
+                "notes"
+              ]
+            }
+          },
+          "required": [
+            "object_id",
+            "expected_revision",
+            "expected_sha256",
+            "operation_key",
+            "card"
+          ]
+        }
+      },
+      {
+        "id": "remove_card",
+        "title": "移除来源说明",
+        "effect": "managed_write",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "expected_revision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "expected_sha256": {
+              "type": "string",
+              "pattern": "^([a-f0-9]{64})?$"
+            },
+            "operation_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "card_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            }
+          },
+          "required": [
+            "object_id",
+            "expected_revision",
+            "expected_sha256",
+            "operation_key",
+            "card_id"
+          ]
+        }
+      },
+      {
+        "id": "put_evidence",
+        "title": "维护固定证据",
+        "effect": "managed_write",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "expected_revision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "expected_sha256": {
+              "type": "string",
+              "pattern": "^([a-f0-9]{64})?$"
+            },
+            "operation_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "evidence": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "source_index": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 99
+                },
+                "byte_start": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100000000
+                },
+                "byte_end": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100000000
+                },
+                "quote": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 16000
+                }
+              },
+              "required": [
+                "id",
+                "label",
+                "source_index",
+                "byte_start",
+                "byte_end",
+                "quote"
+              ]
+            }
+          },
+          "required": [
+            "object_id",
+            "expected_revision",
+            "expected_sha256",
+            "operation_key",
+            "evidence"
+          ]
+        }
+      },
+      {
+        "id": "put_turn",
+        "title": "维护采访原话",
+        "effect": "managed_write",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "expected_revision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "expected_sha256": {
+              "type": "string",
+              "pattern": "^([a-f0-9]{64})?$"
+            },
+            "operation_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "turn": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "speaker": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "order": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1000
+                },
+                "evidence_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "context": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 4000
+                }
+              },
+              "required": [
+                "id",
+                "speaker",
+                "order",
+                "evidence_id",
+                "context"
+              ]
+            }
+          },
+          "required": [
+            "object_id",
+            "expected_revision",
+            "expected_sha256",
+            "operation_key",
+            "turn"
+          ]
+        }
+      },
+      {
+        "id": "put_block",
+        "title": "维护文章段落",
+        "effect": "managed_write",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "expected_revision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "expected_sha256": {
+              "type": "string",
+              "pattern": "^([a-f0-9]{64})?$"
+            },
+            "operation_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "block": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "order": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 300
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 20000
+                }
+              },
+              "required": [
+                "id",
+                "title",
+                "order",
+                "text"
+              ]
+            }
+          },
+          "required": [
+            "object_id",
+            "expected_revision",
+            "expected_sha256",
+            "operation_key",
+            "block"
+          ]
+        }
+      },
+      {
+        "id": "remove_block",
+        "title": "移除文章段落",
+        "effect": "managed_write",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "expected_revision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "expected_sha256": {
+              "type": "string",
+              "pattern": "^([a-f0-9]{64})?$"
+            },
+            "operation_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "block_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            }
+          },
+          "required": [
+            "object_id",
+            "expected_revision",
+            "expected_sha256",
+            "operation_key",
+            "block_id"
+          ]
+        }
+      },
+      {
+        "id": "put_claim",
+        "title": "维护文章主张",
+        "effect": "managed_write",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "expected_revision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "expected_sha256": {
+              "type": "string",
+              "pattern": "^([a-f0-9]{64})?$"
+            },
+            "operation_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "claim": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "block_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "block_sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "byte_start": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100000000
+                },
+                "byte_end": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100000000
+                },
+                "excerpt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 16000
+                },
+                "statement": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 8000
+                }
+              },
+              "required": [
+                "id",
+                "block_id",
+                "block_sha256",
+                "byte_start",
+                "byte_end",
+                "excerpt",
+                "statement"
+              ]
+            }
+          },
+          "required": [
+            "object_id",
+            "expected_revision",
+            "expected_sha256",
+            "operation_key",
+            "claim"
+          ]
+        }
+      },
+      {
+        "id": "remove_claim",
+        "title": "移除文章主张",
+        "effect": "managed_write",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "expected_revision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "expected_sha256": {
+              "type": "string",
+              "pattern": "^([a-f0-9]{64})?$"
+            },
+            "operation_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "claim_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            }
+          },
+          "required": [
+            "object_id",
+            "expected_revision",
+            "expected_sha256",
+            "operation_key",
+            "claim_id"
+          ]
+        }
+      },
+      {
+        "id": "put_link",
+        "title": "维护证据关系",
+        "effect": "managed_write",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "expected_revision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "expected_sha256": {
+              "type": "string",
+              "pattern": "^([a-f0-9]{64})?$"
+            },
+            "operation_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "link": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "claim_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "evidence_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "relation": {
+                  "enum": [
+                    "supports",
+                    "contradicts",
+                    "context"
+                  ]
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4000
+                }
+              },
+              "required": [
+                "id",
+                "claim_id",
+                "evidence_id",
+                "relation",
+                "reason"
+              ]
+            }
+          },
+          "required": [
+            "object_id",
+            "expected_revision",
+            "expected_sha256",
+            "operation_key",
+            "link"
+          ]
+        }
+      },
+      {
+        "id": "remove_link",
+        "title": "移除证据关系",
+        "effect": "managed_write",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "expected_revision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "expected_sha256": {
+              "type": "string",
+              "pattern": "^([a-f0-9]{64})?$"
+            },
+            "operation_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "link_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            }
+          },
+          "required": [
+            "object_id",
+            "expected_revision",
+            "expected_sha256",
+            "operation_key",
+            "link_id"
+          ]
+        }
+      },
+      {
+        "id": "put_assessment",
+        "title": "维护核实记录",
+        "effect": "managed_write",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "expected_revision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "expected_sha256": {
+              "type": "string",
+              "pattern": "^([a-f0-9]{64})?$"
+            },
+            "operation_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "assessment": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "claim_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "context_sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "judgment": {
+                  "enum": [
+                    "supported",
+                    "contested",
+                    "unresolved"
+                  ]
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 8000
+                },
+                "recorder": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                }
+              },
+              "required": [
+                "id",
+                "claim_id",
+                "context_sha256",
+                "judgment",
+                "reason",
+                "recorder"
+              ]
+            }
+          },
+          "required": [
+            "object_id",
+            "expected_revision",
+            "expected_sha256",
+            "operation_key",
+            "assessment"
+          ]
+        }
+      },
+      {
+        "id": "put_note",
+        "title": "维护固定意见",
+        "effect": "managed_write",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "expected_revision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "expected_sha256": {
+              "type": "string",
+              "pattern": "^([a-f0-9]{64})?$"
+            },
+            "operation_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "note": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "target_kind": {
+                  "enum": [
+                    "block",
+                    "claim",
+                    "turn"
+                  ]
+                },
+                "target_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "target_sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "origin": {
+                  "enum": [
+                    "author",
+                    "agent"
+                  ]
+                },
+                "comment": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 8000
+                },
+                "status": {
+                  "enum": [
+                    "open",
+                    "resolved"
+                  ]
+                },
+                "resolution": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 4000
+                }
+              },
+              "required": [
+                "id",
+                "target_kind",
+                "target_id",
+                "target_sha256",
+                "origin",
+                "comment",
+                "status",
+                "resolution"
+              ]
+            }
+          },
+          "required": [
+            "object_id",
+            "expected_revision",
+            "expected_sha256",
+            "operation_key",
+            "note"
+          ]
+        }
+      },
+      {
+        "id": "remove_note",
+        "title": "移除固定意见",
+        "effect": "managed_write",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "expected_revision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "expected_sha256": {
+              "type": "string",
+              "pattern": "^([a-f0-9]{64})?$"
+            },
+            "operation_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "note_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            }
+          },
+          "required": [
+            "object_id",
+            "expected_revision",
+            "expected_sha256",
+            "operation_key",
+            "note_id"
+          ]
+        }
+      },
+      {
+        "id": "target_digest",
+        "title": "读取固定目标摘要",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "target_kind": {
+              "enum": [
+                "block",
+                "claim",
+                "turn"
+              ]
+            },
+            "target_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            }
+          },
+          "required": [
+            "object_id",
+            "target_kind",
+            "target_id"
+          ]
+        }
+      },
+      {
+        "id": "check_nonfiction",
+        "title": "检查纪实核实缺口",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            }
+          },
+          "required": [
+            "object_id"
+          ]
+        }
+      },
+      {
+        "id": "claim_report",
+        "title": "读取主张与核实",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            }
+          },
+          "required": [
+            "object_id"
+          ]
+        }
+      },
+      {
+        "id": "evidence_report",
+        "title": "读取证据与反证",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            }
+          },
+          "required": [
+            "object_id"
+          ]
+        }
+      },
+      {
+        "id": "interview_view",
+        "title": "读取采访原话",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            }
+          },
+          "required": [
+            "object_id"
+          ]
+        }
+      },
+      {
+        "id": "article_view",
+        "title": "读取文章结构",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            }
+          },
+          "required": [
+            "object_id"
+          ]
+        }
+      },
+      {
+        "id": "citation_list",
+        "title": "读取实际引用清单",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            }
+          },
+          "required": [
+            "object_id"
+          ]
+        }
+      },
+      {
+        "id": "claim_digest",
+        "title": "读取主张及证据组合摘要",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "claim_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            }
+          },
+          "required": [
+            "object_id",
+            "claim_id"
+          ]
+        }
+      },
+      {
+        "id": "export_article",
+        "title": "导出专业阅读本",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "offset": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 32000000
+            },
+            "max_bytes": {
+              "type": "integer",
+              "minimum": 256,
+              "maximum": 65536
+            }
+          },
+          "required": [
+            "object_id"
+          ]
+        }
+      },
+      {
+        "id": "export_review",
+        "title": "导出完整专业审核本",
+        "effect": "read",
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "detail": {
+              "enum": [
+                "full",
+                "summary"
+              ]
+            },
+            "offset": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 32000000
+            },
+            "max_bytes": {
+              "type": "integer",
+              "minimum": 256,
+              "maximum": 65536
+            }
+          },
+          "required": [
+            "object_id"
+          ]
+        }
+      }
+    ],
+    "skills": [
+      {
+        "id": "nonfiction-studio",
+        "name": "hetu-nonfiction-studio",
+        "description": "在河图中使用纪实写作读取固定依据、准备专业成果、审核返工与完整交付时使用。",
+        "entry": "skills/hetu-nonfiction-studio/SKILL.md"
+      }
+    ]
+  }
+}

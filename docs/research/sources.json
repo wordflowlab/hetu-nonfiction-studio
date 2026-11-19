@@ -1,0 +1,36 @@
+[
+  {
+    "repository": "https://github.com/citation-js/citation-js.git",
+    "commit": "d2d069124ed026bbc99cb46fe70044b5d0e0596c",
+    "license_and_scope": "MIT；只读元数据和格式分层研究",
+    "files": [
+      {
+        "path": "README.md",
+        "sha256": "f38539b36787cf0ea26d7096a398828018cca1cb709b9cca80e63c30ffcb66df"
+      },
+      {
+        "path": "packages/plugin-csl/src/index.js",
+        "sha256": "3e9006dfcf9dc377881afd337bab79db78e681827c07cd7608e42bcb4f53cd8b"
+      }
+    ]
+  },
+  {
+    "repository": "https://github.com/hypothesis/h.git",
+    "commit": "9d116e407573d9cf8860643da30227b29a33b81d",
+    "license_and_scope": "BSD-2-Clause；只读固定选区与引文研究",
+    "files": [
+      {
+        "path": "README.md",
+        "sha256": "2aaa25d2ab02a0e3f6360f775e7cec9247c4404ceaf1df32a4dd67816487102f"
+      },
+      {
+        "path": "LICENSE",
+        "sha256": "34dacbf7c2ae9fd5e8387ecc39b3c273b89600ec467ad4b90fc3850d18162d0e"
+      },
+      {
+        "path": "h/models/annotation.py",
+        "sha256": "18d2ea5c94727c45c4efcbc02d987d6ba1602f9cf8f06fa3308a0a4aa39b31ea"
+      }
+    ]
+  }
+]

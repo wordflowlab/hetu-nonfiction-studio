@@ -1,0 +1,20 @@
+[
+  {
+    "url": "https://www.zotero.org/",
+    "date": "2026-11-19",
+    "scope": "只读公开页面，不登录、不生成、不将营销主张当业务验收",
+    "status": 200,
+    "final_url": "https://www.zotero.org/",
+    "title": "Zotero | Your personal research assistant",
+    "sha256": "200b88bc583c1660f8423c2f057a8fc108d724baa0810bef5ec35c5303c8658f"
+  },
+  {
+    "url": "https://www.dabblewriter.com/",
+    "date": "2026-11-19",
+    "scope": "只读公开页面，不登录、不生成、不将营销主张当业务验收",
+    "status": 200,
+    "final_url": "https://www.dabblewriter.com/",
+    "title": "Dabble Writer | The Best Book Writing Software for Authors",
+    "sha256": "8268bcaa99f29720f251656d81bf2d238e3ca3a0b2109c39ab0f79d5172a6f9c"
+  }
+]

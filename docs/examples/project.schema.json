@@ -1,0 +1,457 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "format_version": {
+      "const": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 170
+    },
+    "brief": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 8000
+    },
+    "cards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "source_index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "creator": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 500
+          },
+          "date_label": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 200
+          },
+          "locator": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1000
+          },
+          "notes": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "id",
+          "source_index",
+          "title",
+          "creator",
+          "date_label",
+          "locator",
+          "notes"
+        ]
+      },
+      "maxItems": 100
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "source_index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "byte_start": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000000
+          },
+          "byte_end": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100000000
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 16000
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "source_index",
+          "byte_start",
+          "byte_end",
+          "quote"
+        ]
+      },
+      "maxItems": 400
+    },
+    "turns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "speaker": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000
+          },
+          "evidence_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "context": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "id",
+          "speaker",
+          "order",
+          "evidence_id",
+          "context"
+        ]
+      },
+      "maxItems": 500
+    },
+    "blocks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 300
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20000
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "order",
+          "text"
+        ]
+      },
+      "maxItems": 300
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "block_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "block_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "byte_start": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000000
+          },
+          "byte_end": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100000000
+          },
+          "excerpt": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 16000
+          },
+          "statement": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8000
+          }
+        },
+        "required": [
+          "id",
+          "block_id",
+          "block_sha256",
+          "byte_start",
+          "byte_end",
+          "excerpt",
+          "statement"
+        ]
+      },
+      "maxItems": 500
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "claim_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "evidence_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "relation": {
+            "enum": [
+              "supports",
+              "contradicts",
+              "context"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "id",
+          "claim_id",
+          "evidence_id",
+          "relation",
+          "reason"
+        ]
+      },
+      "maxItems": 1000
+    },
+    "assessments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "claim_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "context_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "judgment": {
+            "enum": [
+              "supported",
+              "contested",
+              "unresolved"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8000
+          },
+          "recorder": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "id",
+          "claim_id",
+          "context_sha256",
+          "judgment",
+          "reason",
+          "recorder"
+        ]
+      },
+      "maxItems": 500
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "target_kind": {
+            "enum": [
+              "block",
+              "claim",
+              "turn"
+            ]
+          },
+          "target_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "target_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "origin": {
+            "enum": [
+              "author",
+              "agent"
+            ]
+          },
+          "comment": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8000
+          },
+          "status": {
+            "enum": [
+              "open",
+              "resolved"
+            ]
+          },
+          "resolution": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "id",
+          "target_kind",
+          "target_id",
+          "target_sha256",
+          "origin",
+          "comment",
+          "status",
+          "resolution"
+        ]
+      },
+      "maxItems": 300
+    },
+    "basis_refs": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "owner_plugin_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "object_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000000
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "owner_plugin_id",
+          "object_id",
+          "revision",
+          "sha256"
+        ]
+      }
+    }
+  },
+  "required": [
+    "format_version",
+    "title",
+    "brief",
+    "cards",
+    "evidence",
+    "turns",
+    "blocks",
+    "claims",
+    "links",
+    "assessments",
+    "notes",
+    "basis_refs"
+  ]
+}
