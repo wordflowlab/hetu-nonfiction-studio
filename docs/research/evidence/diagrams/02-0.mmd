@@ -1,0 +1,9 @@
+erDiagram
+ PROJECT ||--o{ BLOCK : orders
+ BLOCK ||--o{ CLAIM : anchors
+ CLAIM ||--o{ LINK : evaluates
+ EVIDENCE ||--o{ LINK : supports_or_contradicts
+ SOURCE_CARD ||--o{ EVIDENCE : describes
+ EVIDENCE ||--o{ TURN : quotes
+ CLAIM ||--o{ ASSESSMENT : snapshots
+ CLAIM ||--o{ NOTE : reviews
